@@ -35,8 +35,8 @@ exports.index = function (req, res, next) {
 
 
 exports.admin = function (req, res, next) {
-  console.log(req.body);
-  User.find({ username: req.body.username, password: req.body.password }, function (err, users) {
+  const body = req.body;
+  User.find({ username: body.username, password: body.password }, function (err, users) {
     if (users.length > 0) {
       return res.render('admin', {
         title: 'Admin Access Granted',
@@ -53,12 +53,12 @@ exports.admin = function (req, res, next) {
 };
 
 function parse(todo) {
-  var t = todo;
+  var t1 = todo;
 
   var remindToken = ' in ';
-  var reminder = t.toString().indexOf(remindToken);
+  var reminder = t1.toString().indexOf(remindToken);
   if (reminder > 0) {
-    var time = t.slice(reminder + remindToken.length);
+    var time = t2.slice(reminder + remindToken.length);
     time = time.replace(/\n$/, '');
 
     var period = hms(time);
@@ -66,12 +66,12 @@ function parse(todo) {
     console.log('period: ' + period);
 
     // remove it
-    t = t.slice(0, reminder);
+    t1 = t.slice(0, reminder);
     if (typeof period != 'undefined') {
-      t += ' [' + ms(period) + ']';
+      t1 += ' [' + ms(period) + ']';
     }
   }
-  return t;
+  return t1;
 }
 
 exports.create = function (req, res, next) {
